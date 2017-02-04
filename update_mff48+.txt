@@ -1,0 +1,139 @@
+### Eclipse Workspace Patch 1.0
+#P sibbac_selenium
+Index: .settings/org.eclipse.jdt.core.prefs
+===================================================================
+--- .settings/org.eclipse.jdt.core.prefs	(revision 0)
++++ .settings/org.eclipse.jdt.core.prefs	(working copy)
+@@ -0,0 +1,12 @@
++eclipse.preferences.version=1
++org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
++org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.7
++org.eclipse.jdt.core.compiler.codegen.unusedLocal=preserve
++org.eclipse.jdt.core.compiler.compliance=1.7
++org.eclipse.jdt.core.compiler.debug.lineNumber=generate
++org.eclipse.jdt.core.compiler.debug.localVariable=generate
++org.eclipse.jdt.core.compiler.debug.sourceFile=generate
++org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
++org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
++org.eclipse.jdt.core.compiler.problem.forbiddenReference=warning
++org.eclipse.jdt.core.compiler.source=1.7
+Index: src/main/java/gov/gsf/ogj/modules/bandejaatencion/BusquedaBandejaAtencion.java
+===================================================================
+--- src/main/java/gov/gsf/ogj/modules/bandejaatencion/BusquedaBandejaAtencion.java	(revision 8855)
++++ src/main/java/gov/gsf/ogj/modules/bandejaatencion/BusquedaBandejaAtencion.java	(working copy)
+@@ -40,17 +40,27 @@
+ 		linkHome.click();
+ 		
+ 		// Se aguarda 10 segs el procesamiento ajax.
+-		this.waitForAjax(ConstantesGlobales.DIEZ);
++//		this.waitForAjax(ConstantesGlobales.DIEZ);
+ 		
+ 		// Voy a pantalla de búsqueda
++//		WebElement linkCJ = driver.findElements(
++//			By.xpath("//a[@href='/ogj/bandejaDeEntrada/formularioAtencionPublico.xhtml']")).get(0);
++		
+ 		WebElement linkCJ = driver.findElements(
+-			By.xpath("//a[@href='/ogj/bandejaDeEntrada/formularioAtencionPublico.xhtml']")).get(0);
++			By.cssSelector("a[href='/ogj/bandejaDeEntrada/formularioAtencionPublico.xhtml']")).get(0);
++		
++		// "a[href='/ogj/bandejaDeEntrada/formularioAtencionPublico.xhtml']"
++		
++		System.out.println(" ***** linkCJ.getTagName() ***** " + linkCJ.getTagName() + " ***** linkCJ.getTagName() ***** ");
++		System.out.println(" ***** linkCJ.isDisplayed() ***** " + linkCJ.isDisplayed() + " ***** linkCJ.isDisplayed() ***** ");
++
+ 		linkCJ.click();
+ 		
+ 		// Se aguarda 10 segs el procesamiento ajax.
+-		this.waitForAjax(ConstantesGlobales.DIEZ);
++//		this.waitForAjax(ConstantesGlobales.DIEZ);
+ 		
+ 		// Búsqueda con filtros
++/*
+ 		LOG.info("Búsqueda de solicitudes provenientes de MPA");
+ 		this.ctrlSetCombo("bandejaForm:ofis", "Todos");
+ 		this.ctrlSetCombo("bandejaForm:area", "MPA");
+@@ -74,6 +84,7 @@
+ 			this.ctrlClickByLocatorAndExpr(
+ 				ConstantesGlobales.LOCATOR_BY_ID, "bandejaForm:asignar");
+ 		}
++*/		
+ 		return mapa;
+ 	}
+ 
+Index: src/main/java/gov/gsf/ogj/run/RunAllTest.java
+===================================================================
+--- src/main/java/gov/gsf/ogj/run/RunAllTest.java	(revision 10777)
++++ src/main/java/gov/gsf/ogj/run/RunAllTest.java	(working copy)
+@@ -20,6 +20,7 @@
+ 	@Test
+ 	public void test() throws Exception {
+ 		
++		System.setProperty("webdriver.gecko.driver", "C:\\geckodriver\\geckodriver.exe");
+ 		String baseURL = ConfigHelper.getString(ConstantesGlobales.BASE_URL);
+ 		WebDriver driver = new FirefoxDriver();
+ 		driver.manage().window().maximize();
+Index: .settings/org.eclipse.jdt.core.prefs
+===================================================================
+--- .settings/org.eclipse.jdt.core.prefs	(revision 0)
++++ .settings/org.eclipse.jdt.core.prefs	(working copy)
+@@ -0,0 +1,12 @@
++eclipse.preferences.version=1
++org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
++org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.7
++org.eclipse.jdt.core.compiler.codegen.unusedLocal=preserve
++org.eclipse.jdt.core.compiler.compliance=1.7
++org.eclipse.jdt.core.compiler.debug.lineNumber=generate
++org.eclipse.jdt.core.compiler.debug.localVariable=generate
++org.eclipse.jdt.core.compiler.debug.sourceFile=generate
++org.eclipse.jdt.core.compiler.problem.assertIdentifier=error
++org.eclipse.jdt.core.compiler.problem.enumIdentifier=error
++org.eclipse.jdt.core.compiler.problem.forbiddenReference=warning
++org.eclipse.jdt.core.compiler.source=1.7
+Index: pom.xml
+===================================================================
+--- pom.xml	(revision 10667)
++++ pom.xml	(working copy)
+@@ -29,13 +29,13 @@
+ 		<dependency>
+ 			<groupId>org.seleniumhq.selenium</groupId>
+ 			<artifactId>selenium-firefox-driver</artifactId>
+-			<version>2.53.0</version>
++			<version>3.0.0-beta1</version>
+ 		</dependency>
+ 		
+ 		<dependency>
+ 	        <groupId>org.seleniumhq.selenium</groupId>
+ 	        <artifactId>selenium-java</artifactId>
+-	        <version>2.53.0</version>
++	        <version>3.0.0-beta1</version>
+ 	    </dependency>
+ 
+ 		<!-- SLF4j -->
+@@ -64,6 +64,11 @@
+ 		    <artifactId>webdrivermanager</artifactId>
+ 		    <version>1.4.6</version>
+ 		</dependency>
++		<dependency>
++		    <groupId>io.github.bonigarcia</groupId>
++		    <artifactId>webdrivermanager</artifactId>
++		    <version>1.4.9</version>
++		</dependency>
+ 		
+ 	</dependencies>
+ 
+Index: .classpath
+===================================================================
+--- .classpath	(revision 5435)
++++ .classpath	(working copy)
+@@ -27,10 +27,6 @@
+ 			<attribute name="maven.pomderived" value="true"/>
+ 		</attributes>
+ 	</classpathentry>
+-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+-		<attributes>
+-			<attribute name="maven.pomderived" value="true"/>
+-		</attributes>
+-	</classpathentry>
++	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+ 	<classpathentry kind="output" path="target/classes"/>
+ </classpath>

@@ -1,0 +1,16 @@
+
+# URL del servidor al que se apunta la aplicación.
+baseURL=http://10.15.64.26:8080
+
+# usuario y pass
+usuario=mcontini
+password=654321
+
+# switches funcionalidades
+sw.alta_solicitud_Audiencia.enabled=false
+sw.busqueda_carpeta.enabled=true
+sw.busqueda_bandeja_entrada.enabled=false
+sw.busqueda_consulta_agenda.enabled=false
+
+# mail válido
+mail_valido=maximiliano.contini@neoris.com

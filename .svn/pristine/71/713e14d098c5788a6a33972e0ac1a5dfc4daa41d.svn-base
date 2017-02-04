@@ -1,0 +1,72 @@
+package gov.gsf.ogj.run;
+
+import gov.gsf.ogj.modules.carpetajudicial.BusquedaCarpetaJudicial;
+import gov.gsf.ogj.modules.login.Login;
+import gov.gsf.ogj.modules.solicitudes.AltaSolicitudAudiencia;
+
+import java.io.File;
+
+import org.apache.log4j.PropertyConfigurator;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ *	Ejecutable de prueba - por el momento no utilizado. 
+ */
+public class Run {
+
+	private static final Logger LOG = LoggerFactory.getLogger(Run.class);
+
+	/**
+	 * Procedimiento principal.
+	 * 
+	 * @param args 
+	 * @throws Exception 
+	 */
+	public static void main(String[] args) throws Exception {
+		
+		// Setup de la aplicación
+		setup();
+		LOG.info("Aplicación inicializada.");
+		
+		// Firefox Driver
+		LOG.info("Inicializando firefox...");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().window().maximize();
+		LOG.info("Firefox inicializado.");
+
+		// Home Page
+		String host = "http://10.15.64.26:8080";
+		driver.get(host + "/ogj/index.xhtml");
+		
+		// ======================== Comienzo
+
+		// Test login
+		Login login = new Login(driver, host);
+		login.login("admin", "123456");
+		
+		// Test Búsqueda de legajo
+		BusquedaCarpetaJudicial busquedaLegajo = new BusquedaCarpetaJudicial(driver, host);
+		busquedaLegajo.buscarCarpeta();
+		
+		// Alta de Solicitud
+		AltaSolicitudAudiencia altaSolicitud = new AltaSolicitudAudiencia(driver, host);
+		altaSolicitud.altaSolicitud();
+
+		// ======================== Final
+
+		driver.quit();
+	}
+	
+	/**
+	 * Setup de la aplicación.
+	 * 
+	 */
+	private static void setup() {
+		File configFile = new File(Run.class.getClassLoader().getResource("log4j.properties").getFile());
+		PropertyConfigurator.configure(configFile.getAbsolutePath());
+	}
+	
+}

@@ -1,0 +1,189 @@
+package corp.dev.sibbac.utils;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.UUID;
+
+import corp.dev.sibbac.constantes.ConstantesGlobales;
+
+/**
+ * Utilidades básicas para strings.
+ */
+public final class StringUtils {
+
+	/**
+	 * Constructor por defecto.
+	 */
+	private  StringUtils() {
+	}
+
+	/**
+	 * En caso de que el valor sea nulo, devuelve "".
+	 * @param value Valor
+	 * @return Retorno
+	 */
+	public static String safeNull(String value) {
+		if (value == null) {
+			return "";
+		} else {
+			return value.trim();
+		}
+	}
+	
+	/**
+	 * Realiza un encodeado básico solo a nivel de caracteres especiales.
+	 * 
+	 * @param texto Texto a encodear.
+	 * @return Texto encodeado.
+	 */
+	public static String htmlEncodeTilde(String texto) {
+
+		String textoAux = texto;
+
+		if (textoAux == null) {
+			return "";
+		} else {
+			textoAux = textoAux.replace("á", "&aacute;");
+			textoAux = textoAux.replace("é", "&eacute;");
+			textoAux = textoAux.replace("í", "&iacute;");
+			textoAux = textoAux.replace("ó", "&oacute;");
+			textoAux = textoAux.replace("ú", "&uacute;");
+			textoAux = textoAux.replace("Á", "&Aacute;");
+			textoAux = textoAux.replace("É", "&Eacute;");
+			textoAux = textoAux.replace("Í", "&Iacute;");
+			textoAux = textoAux.replace("Ó", "&Oacute;");
+			textoAux = textoAux.replace("Ú", "&Uacute;");
+			textoAux = textoAux.replace("ñ", "&ntilde;");
+			textoAux = textoAux.replace("Ñ", "&Ntilde;");
+			textoAux = textoAux.replace("º", "&deg;");
+			return textoAux;
+		}
+	}
+	
+	/**
+	 * Realiza un encodeado básico solo a nivel de caracteres especiales.
+	 * 
+	 * @param mapaOriginal Mapa original
+	 * @return Mapa encodeado.
+	 */
+	public static HashMap<String, Object> htmlEncodeTilde(HashMap<String, Object> mapaOriginal) {
+		HashMap<String, Object> mapaNuevo = new HashMap<String, Object>();
+		Iterator<String> iter = mapaOriginal.keySet().iterator();
+		while (iter.hasNext()) {
+			String key = iter.next();
+			Object obj = mapaOriginal.get(key);
+			if (obj instanceof String) {
+				mapaNuevo.put(key, htmlEncodeTilde((String) obj));
+			} else {
+				mapaNuevo.put(key,  obj);
+			}
+		}
+		
+		return mapaNuevo;
+	}
+	
+	/**
+	 * 	splitByLength.
+	 * 	@param pValue 
+	 * 	@param length 
+	 * 	@param splitStr  
+	 * 	@return String
+	 */
+	public static String splitByLength(String pValue, int length, String splitStr) {
+		String value = pValue;
+		if (value != null) {
+			StringBuffer sb = new StringBuffer();
+			do {
+				if (value.length() > length) {
+					String cut = value.substring(0, Math.min(value.length(), length));
+					int pos = cut.lastIndexOf(" ");
+					if (pos > 0) {
+						cut = cut.substring(0, pos);
+					}
+					sb.append(cut);
+					if (pos > 0) {
+						value = value.substring(Math.min(cut.length() + 1, length));
+					} else {
+						value = value.substring(cut.length());
+					}
+					if (!"".equals(value)) {
+						sb.append(splitStr);
+					}
+				} else {
+					sb.append(value);
+					value = "";
+				}
+			} while (!"".equals(value));
+			
+			return sb.toString();
+		} else {
+			return null;
+		}
+	}
+	
+	/**
+	 * Normaliza un string para búsquedas en base de datos
+	 * con FN_NORMALIZAR_CADENA.
+	 * @param value string original
+	 * @return string normalizado
+	 */
+	public static String fnNormalizarCadena(String value) {
+	    String original = "ÁÉÍÓÖÚÜ";
+	    String ascii = "AEIOOUU";
+	    String output = safeNull(value).toUpperCase();
+	    for (int i = 0; i < original.length(); i++) {
+	        output = output.replace(original.charAt(i), ascii.charAt(i));
+	    }
+	    return output;
+	}
+	
+	/**
+	 *	Determina si la cadena de caracteres pasada es una
+	 *	expresión numérica.
+	 *	@param str expresión a ser evaluada
+	 *	@return boolean indica si es numérico ó no 
+	 */
+	public static boolean esNumerico(String str) {
+	    if (str == null) {
+	        return false;
+	    }    
+	    try {  
+	        Integer.parseInt(str);
+	    } catch (NumberFormatException nfe) {  
+	        return false;  
+	    }
+	    return true;
+	}
+	
+	/**
+	 *	Devuelve un String aleatorio con el tamaño 
+	 *	que se especifique.
+	 *	@param cantidadCaracteres : tamaño de la cadena de caracteres aleatoria
+	 *	@return String aleatorio alfanumérico
+	 */
+	public static String getStringAleatorio(int cantidadCaracteres) {
+		return UUID.randomUUID().toString().replaceAll("-", "").substring(
+			0, cantidadCaracteres);
+	}
+	
+	/**
+	 *	Devuelve un número aleatorio con el tamaño que se especifique.
+	 *	@param cantidadNumeros longitud expresión numérica a devolver
+	 *	@return String expresión alfanumérica aleatoria
+	 */
+	public static String getNumericoAleatorioAsString(int cantidadNumeros) {
+		if (cantidadNumeros <= 0 || cantidadNumeros > ConstantesGlobales.DIEZ) {
+			return String.valueOf(Math.random() * ConstantesGlobales.MIL_MILLONES).substring(
+				0, ConstantesGlobales.DIEZ);
+		} else {
+			StringBuffer a = new StringBuffer();
+			a.append("1");
+			for (int x = 0; x < cantidadNumeros; x++) {
+				a.append("0");
+			}
+			return String.valueOf(
+				Math.random() * Integer.parseInt(
+					a.toString())).substring(0, cantidadNumeros);
+		} 
+	}
+}
