@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import corp.dev.sibbac.constantes.ConstantesGlobales;
 import corp.dev.sibbac.helpers.ConfigHelper;
+import corp.dev.sibbac.modules.gestorprocesos.GestorProcesos;
 import corp.dev.sibbac.modules.login.Login;
 
 /**
@@ -56,13 +57,10 @@ public class Run {
 		login.login(ConfigHelper.getString(ConstantesGlobales.USUARIO), 
 				ConfigHelper.getString(ConstantesGlobales.PASSWORD));
 		
-		// Test Búsqueda de legajo
-//		BusquedaCarpetaJudicial busquedaLegajo = new BusquedaCarpetaJudicial(driver, host);
-//		busquedaLegajo.buscarCarpeta();
+		// Test Gestor Procesos
+		GestorProcesos gps = new GestorProcesos(driver, baseURL);
+		gps.ejecutarProceso();
 		
-		// Alta de Solicitud
-//		AltaSolicitudAudiencia altaSolicitud = new AltaSolicitudAudiencia(driver, host);
-//		altaSolicitud.altaSolicitud();
 
 		// ======================== Final
 

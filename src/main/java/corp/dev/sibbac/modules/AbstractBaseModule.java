@@ -123,16 +123,19 @@ public abstract class AbstractBaseModule {
 	 * 	> LOCATOR_BY_XPATH
 	 * 
 	 * 	@param expression la expresión según el tipo de locator
+	 * 	@return element
 	 * 	@throws Exception 
 	 */
-	protected void ctrlClickByLocatorAndExpr(
+	protected WebElement ctrlClickByLocatorAndExpr(
 		String locator, String expression) throws Exception {
 		WebElement element = this.getWebElementByLocator(locator, expression);
 		if (element != null) {
 			this.ensureWebElementVisible(element);
 			element.click();
-			this.waitForAjax();
+			Thread.sleep(3000);
+//			this.waitForAjax();
 		} 
+		return element;
 	}
 	
 	
@@ -281,6 +284,9 @@ public abstract class AbstractBaseModule {
 			case ConstantesGlobales.LOCATOR_BY_ID:
 				element = this.driver.findElement(By.id(expression));
 				break;
+			case ConstantesGlobales.LOCATOR_BY_LINK_TEXT:
+				element = this.driver.findElement(By.linkText(expression));
+				break;	
 			case ConstantesGlobales.LOCATOR_BY_XPATH:
 				element = this.driver.findElement(By.xpath(expression));
 				break;

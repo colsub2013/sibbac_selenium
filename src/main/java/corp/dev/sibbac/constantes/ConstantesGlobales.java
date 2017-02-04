@@ -47,11 +47,14 @@ public interface ConstantesGlobales {
 	/** Números. */
 	int MIL_MILLONES = 1000000000;
 	
+	/** Locators - By cssSelector.  */
+	String LOCATOR_BY_CSS_SELECTOR = "ByCssSelector";
+
 	/** Locators - ById.  */
 	String LOCATOR_BY_ID = "ById";
 	
-	/** Locators - By cssSelector.  */
-	String LOCATOR_BY_CSS_SELECTOR = "ByCssSelector";
+	/** Locators - By ByLinkText.  */
+	String LOCATOR_BY_LINK_TEXT = "linkText";
 	
 	/** Locators - By ByXpath.  */
 	String LOCATOR_BY_XPATH = "ByXpath";
