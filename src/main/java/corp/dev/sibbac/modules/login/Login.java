@@ -1,6 +1,8 @@
 package corp.dev.sibbac.modules.login;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,25 +29,34 @@ public class Login extends AbstractBaseModule {
 	public void login(String usuario, String pass) throws Exception {
 		LOG.info("Test - login");
 
-		Thread.sleep(10000);
-		
 		// Se aguarda 10 segs el procesamiento ajax.
 		this.waitForAjax(ConstantesGlobales.TREINTA);
 		
-		this.ctrlSetTextByXPath("//*[@ng-model='user.username']", usuario);
+		WebElement usuarioInputText = this.ctrlSetTextByLocator(
+				ConstantesGlobales.LOCATOR_BY_XPATH, "//*[@ng-model='user.username']", usuario);
 
 		// Se aguarda 10 segs el procesamiento ajax.
 		this.waitForAjax(ConstantesGlobales.TREINTA);
-
-		this.ctrlSetTextByXPath("//*[@ng-model='user.password']", pass);
+		
+		this.ctrlSetTextByLocator(
+				ConstantesGlobales.LOCATOR_BY_XPATH, "//*[@ng-model='user.password']", pass);
 
 		LOG.info("Before click");
 		
 		// Se aguarda 10 segs el procesamiento ajax.
 		this.waitForAjax(ConstantesGlobales.TREINTA);
-		
-		this.ctrlClickByLocatorAndExpr(
+
+		WebElement botonSubmit = this.getWebElementByLocator(
 			ConstantesGlobales.LOCATOR_BY_CSS_SELECTOR, ".btn.buscador.mybutton");
+
+//		if (!botonSubmit.isEnabled()) {
+//			new Actions(driver).moveToElement(usuarioInputText).perform();
+//			Thread.sleep(10000);
+//		}
+		
+//		this.ctrlClickByLocatorAndExpr(
+//			ConstantesGlobales.LOCATOR_BY_CSS_SELECTOR, ".btn.buscador.mybutton");
+		
 		LOG.info("After click");
 		
 //		if (!driver.getCurrentUrl().toLowerCase().endsWith("index.xhtml")) {

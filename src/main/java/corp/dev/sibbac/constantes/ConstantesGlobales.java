@@ -20,18 +20,6 @@ public interface ConstantesGlobales {
 	/** Clave mapa para url del servidor. */
 	String MAIL_VALIDO = "mail_valido";
 	
-	/** Switch para búsqueda de carpetas. */
-	String SW_BUSQUEDA_CARPETA_ENABLED = "sw.busqueda_carpeta.enabled";
-
-	/** Switch para alta de solicitud de audiencia. */
-	String SW_ALTA_SOLICITUD_AUDIENCIA_ENABLED = "sw.alta_solicitud_Audiencia.enabled";
-
-	/** Switch para consulta de agenda. */
-	String SW_BUSQUEDA_CONSULTA_AGENDA_ENABLED = "sw.busqueda_consulta_agenda.enabled";
-	
-	/** Switch para búsqueda de bandeja de entrada. */
-	String SW_BUSQUEDA_BANDEJA_ENTRADA_ENABLED = "sw.busqueda_bandeja_entrada.enabled";
-	
 	/** Números. */
 	int TRES = 3;
 
@@ -65,6 +53,7 @@ public interface ConstantesGlobales {
 	/** Locators - By cssSelector.  */
 	String LOCATOR_BY_CSS_SELECTOR = "ByCssSelector";
 	
-	
+	/** Locators - By ByXpath.  */
+	String LOCATOR_BY_XPATH = "ByXpath";
 
 }

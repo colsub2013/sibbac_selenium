@@ -30,31 +30,6 @@ public class RunAllTest {
 		login.login(ConfigHelper.getString(ConstantesGlobales.USUARIO), 
 			ConfigHelper.getString(ConstantesGlobales.PASSWORD));
 		
-		// Test sobre búsqueda de carpeta.
-		if (ConfigHelper.getBoolean(ConstantesGlobales.SW_BUSQUEDA_CARPETA_ENABLED)) {
-			BusquedaCarpetaJudicialTest bcjt = 
-				new BusquedaCarpetaJudicialTest(driver, baseURL);
-			bcjt.test();
-		}
-		
-		// Test para alta de solicitud.
-		if (ConfigHelper.getBoolean(ConstantesGlobales.SW_ALTA_SOLICITUD_AUDIENCIA_ENABLED)) {
-			AltaSolicitudAudienciaTest ast = new AltaSolicitudAudienciaTest(driver, baseURL);
-			ast.test();
-		}
-		
-		// Test para búsqueda de bandeja de entrada.
-		if (ConfigHelper.getBoolean(ConstantesGlobales.SW_BUSQUEDA_BANDEJA_ENTRADA_ENABLED)) {
-			BusquedaBandejaAtencionTest bbat = new BusquedaBandejaAtencionTest(driver, baseURL);
-			bbat.test();
-		}
-		
-		// Test para búsqueda de agenda.
-		if (ConfigHelper.getBoolean(ConstantesGlobales.SW_BUSQUEDA_CONSULTA_AGENDA_ENABLED)) {
-			ConsultaAgendaTest cat = new ConsultaAgendaTest(driver, baseURL);
-			cat.test();
-		}
-		
 		driver.navigate().refresh();
 		driver.quit();
 	}

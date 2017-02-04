@@ -15,7 +15,6 @@ import com.google.common.base.Stopwatch;
 
 import corp.dev.sibbac.constantes.ConstantesGlobales;
 import corp.dev.sibbac.entities.JQValidatorError;
-import corp.dev.sibbac.helpers.ConfigHelper;
 
 /**
  *	Contiene métodos para fijar el driver más
@@ -106,6 +105,7 @@ public abstract class AbstractBaseModule {
 	 * 	@param partialId  
 	 * 	@throws Exception 
 	 */
+	@Deprecated
 	protected void ctrlClickWildCardByHTMLTypePartialId(
 		String elementTypeHTML, String partialId) throws Exception {
 		WebElement element = this.driver.findElement(
@@ -118,21 +118,16 @@ public abstract class AbstractBaseModule {
 	/**
 	 * 	Controla el accionamiento del click por el locator y expresión que se le pase.
 	 * 	@param locator valores posibles:
-	 * 	> LOCATOR_BY_ID
 	 * 	> LOCATOR_BY_CSS_SELECTOR
+	 * 	> LOCATOR_BY_ID
+	 * 	> LOCATOR_BY_XPATH
 	 * 
 	 * 	@param expression la expresión según el tipo de locator
 	 * 	@throws Exception 
 	 */
 	protected void ctrlClickByLocatorAndExpr(
 		String locator, String expression) throws Exception {
-		WebElement element = null;
-		if (locator.equals(ConstantesGlobales.LOCATOR_BY_ID)) {
-			element = this.driver.findElement(By.id(expression));
-		} else if (locator.equals(ConstantesGlobales.LOCATOR_BY_CSS_SELECTOR)) {
-			element = this.driver.findElement(By.cssSelector(expression));
-		}
-
+		WebElement element = this.getWebElementByLocator(locator, expression);
 		if (element != null) {
 			this.ensureWebElementVisible(element);
 			element.click();
@@ -146,6 +141,7 @@ public abstract class AbstractBaseModule {
 	 * 	@param nroRegistro  
 	 * 	@throws Exception 
 	 */
+	@Deprecated
 	protected void ctrlClickFilaGrilla(String nroRegistro) throws Exception {
 		this.ensureVisibleFilaGrilla(nroRegistro);
 		WebElement opcion = this.driver.findElement(By.xpath("//tbody/tr[@data-ri='" 
@@ -158,6 +154,7 @@ public abstract class AbstractBaseModule {
 	 * 
 	 * 
 	 */
+	@Deprecated
 	protected String getTextoColumnaGrilla(
 		String nroRegistro, int columna) throws Exception {
 		this.ensureVisibleFilaGrilla(nroRegistro);
@@ -170,90 +167,137 @@ public abstract class AbstractBaseModule {
 		}
 	}
 		
+//	/**
+//	 *	Permite seleccionar una fecha del componente 
+//	 *	calendar en base a los parámetros.
+//	 *	id: id del elemento
+//	 *	String: número de día a seleccionar
+//	 *	int desplazMes: si es:
+//	 *	. 0: mes actual
+//	 *	. n > 0: n meses al futuro
+//	 *	. n < 0: n meses al pasado
+//	 * 		
+//	 * 	@param id 
+//	 * 	@param dia 
+//	 * 	@param desplazMes 
+//	 * 	@throws Exception 
+//	 */
+//	@Deprecated
+//	protected void ctrlCalendar(String id, String dia, 
+//		int desplazMes) throws Exception {
+//		this.ensureVisibleById(id);
+//		this.driver.findElement(By.id(id)).click(); 
+//		if (desplazMes > 0) {
+//			for (int x = 0; x < desplazMes; x++) {
+//				this.driver.findElement(By.cssSelector(".ui-datepicker-next.ui-corner-all")).click(); 
+//			}
+//		}
+//		if (desplazMes < 0) {
+//			for (int x = 0; x < -desplazMes; x++) {
+//				this.driver.findElement(By.cssSelector(".ui-datepicker-prev.ui-corner-all")).click(); 
+//			}
+//		}
+//		this.driver.findElement(By.linkText(dia)).click();
+//		this.waitForAjax();
+//	}
+//	
+//	/**
+//	 * 	Selecciona un valor para el combo.
+//	 * 	@param id : id del combo (elemento select HTML)
+//	 * 	@param val : valor de la etiqueta con la que seleccionará el elemento
+//	 * 	@throws Exception	
+//	 */
+//	protected void ctrlSetCombo(String id, String val) throws Exception {
+//		this.ensureVisibleById(id);
+//		WebElement element = this.driver.findElement(By.id(id + "_label"));
+//		element.click();
+//		WebElement opcion = element.findElement(By.xpath("//div[@id='" 
+//				+ id + "_panel']/div/ul/li[@data-label='" + val + "']"));
+//		opcion.click();
+//		this.waitForAjax();
+//	}
+//
+//	/**
+//	 *	Se selecciona un valor del picklist.
+//	 *	@param id : id del elemento picklist
+//	 *	@param val : valor a pasar como target del elemento
+//	 *	@throws Exception 
+//	 */
+//	protected void ctrlPickOption(String id, String val) throws Exception {
+//		this.ensureVisibleById(id);
+//		WebElement tblElement = this.driver.findElement(By.id(id));
+//		WebElement lstElement = tblElement.findElement(By.xpath("//ul[contains(@class,'ui-picklist-source')]"));
+//		WebElement element = lstElement.findElement(By.xpath("//li[@data-item-label='" + val + "']"));
+//		element.click();
+//		this.waitForAjax();
+//		
+//		WebElement btnElement = tblElement.findElement(By.xpath("//button[contains(@class,'ui-picklist-button-add')]"));
+//		btnElement.click();
+//		this.waitForAjax();
+//	}
+//
+//	/**
+//	 *	Permite fijar ingresar un texto a un elemento HTML input text ó textarea.
+//	 * 	@param id : id del elemento input
+//	 * 	@param text : texto a ingresar en el elemento input text ó textarea.
+//	 * 	@throws Exception 
+//	 */
+//	protected void ctrlSetText(String id, String text) throws Exception {
+//		this.ensureVisibleById(id);
+//		WebElement element = this.driver.findElement(By.id(id));
+//		element.sendKeys(text);
+//	}
+
 	/**
-	 *	Permite seleccionar una fecha del componente 
-	 *	calendar en base a los parámetros.
-	 *	id: id del elemento
-	 *	String: número de día a seleccionar
-	 *	int desplazMes: si es:
-	 *	. 0: mes actual
-	 *	. n > 0: n meses al futuro
-	 *	. n < 0: n meses al pasado
-	 * 		
-	 * 	@param id 
-	 * 	@param dia 
-	 * 	@param desplazMes 
-	 * 	@throws Exception 
+	 *	Se escribe en campo de texto.
+	 *	@param locator
+	 *	@param expression
+	 *	@param text
+	 *	@throws Exception 
 	 */
-	protected void ctrlCalendar(String id, String dia, 
-		int desplazMes) throws Exception {
-		this.ensureVisibleById(id);
-		this.driver.findElement(By.id(id)).click(); 
-		if (desplazMes > 0) {
-			for (int x = 0; x < desplazMes; x++) {
-				this.driver.findElement(By.cssSelector(".ui-datepicker-next.ui-corner-all")).click(); 
-			}
+	protected WebElement ctrlSetTextByLocator(String locator, String expression, String text) throws Exception {
+		this.ensureElementVisibleByLocator(locator, expression);
+		WebElement element = this.getWebElementByLocator(locator, expression);
+		if (element != null) {
+			element.sendKeys(text);
+		} else {
+			throw new Exception("No se ha podido localizar al elemento.");
 		}
-		if (desplazMes < 0) {
-			for (int x = 0; x < -desplazMes; x++) {
-				this.driver.findElement(By.cssSelector(".ui-datepicker-prev.ui-corner-all")).click(); 
-			}
-		}
-		this.driver.findElement(By.linkText(dia)).click();
-		this.waitForAjax();
+		return element;
 	}
 	
 	/**
-	 * 	Selecciona un valor para el combo.
-	 * 	@param id : id del combo (elemento select HTML)
-	 * 	@param val : valor de la etiqueta con la que seleccionará el elemento
-	 * 	@throws Exception	
+	 *	Se obtiene elemento Web por Locator y expression.
+	 * 	@param locator
+	 * 	@param expression
+	 * 	@return WebElement
 	 */
-	protected void ctrlSetCombo(String id, String val) throws Exception {
-		this.ensureVisibleById(id);
-		WebElement element = this.driver.findElement(By.id(id + "_label"));
-		element.click();
-		WebElement opcion = element.findElement(By.xpath("//div[@id='" 
-				+ id + "_panel']/div/ul/li[@data-label='" + val + "']"));
-		opcion.click();
-		this.waitForAjax();
+	protected WebElement getWebElementByLocator(String locator, String expression) {
+		WebElement element = null;
+		switch (locator) {
+			case ConstantesGlobales.LOCATOR_BY_CSS_SELECTOR:
+				element = this.driver.findElement(By.cssSelector(expression));
+				break;
+			case ConstantesGlobales.LOCATOR_BY_ID:
+				element = this.driver.findElement(By.id(expression));
+				break;
+			case ConstantesGlobales.LOCATOR_BY_XPATH:
+				element = this.driver.findElement(By.xpath(expression));
+				break;
+			default:
+				break;
+		}
+		return element;
 	}
-
+	
 	/**
-	 *	Se selecciona un valor del picklist.
-	 *	@param id : id del elemento picklist
-	 *	@param val : valor a pasar como target del elemento
-	 *	@throws Exception 
-	 */
-	protected void ctrlPickOption(String id, String val) throws Exception {
-		this.ensureVisibleById(id);
-		WebElement tblElement = this.driver.findElement(By.id(id));
-		WebElement lstElement = tblElement.findElement(By.xpath("//ul[contains(@class,'ui-picklist-source')]"));
-		WebElement element = lstElement.findElement(By.xpath("//li[@data-item-label='" + val + "']"));
-		element.click();
-		this.waitForAjax();
-		
-		WebElement btnElement = tblElement.findElement(By.xpath("//button[contains(@class,'ui-picklist-button-add')]"));
-		btnElement.click();
-		this.waitForAjax();
-	}
-
-	/**
-	 *	Permite fijar ingresar un texto a un elemento HTML input text ó textarea.
-	 * 	@param id : id del elemento input
-	 * 	@param text : texto a ingresar en el elemento input text ó textarea.
-	 * 	@throws Exception 
-	 */
-	protected void ctrlSetText(String id, String text) throws Exception {
-		this.ensureVisibleById(id);
-		WebElement element = this.driver.findElement(By.id(id));
-		element.sendKeys(text);
-	}
-
-	protected void ctrlSetTextByXPath(String expr, String text) throws Exception {
-		this.ensureVisibleByXPath(expr);
-		WebElement element = this.driver.findElement(By.xpath(expr));
-		element.sendKeys(text);
+	 *	Se verifica que el elemento sea visible segun locator.
+	 *	@param locator
+	 *	@param expression
+	 */	
+	protected void ensureElementVisibleByLocator(String locator, String expression) {
+		WebElement element = this.getWebElementByLocator(locator, expression);
+		this.ensureWebElementVisible(element);
 	}
 	
 	/**
@@ -266,35 +310,11 @@ public abstract class AbstractBaseModule {
 		+ (element.getLocation().y - ConstantesGlobales.CIENTO_CINCUENTA) + ");");
 	}
 
-	
-	/**
-	 *	Se ejecuta un scroll para que el elemento sea visible.
-	 *	@param id : id del elemento en cuestión. 
-	 */
-	protected void ensureVisibleById(String id) {
-		WebElement element = this.driver.findElement(By.id(id));
-		this.ensureWebElementVisible(element);
-	}
-	
-	protected void ensureVisibleByNgModel(String expr) {
-		WebElement element = this.driver.findElement(By.cssSelector(expr));
-		this.ensureWebElementVisible(element);
-	}
-
-	/**
-	 *	Se ejecuta un scroll para que el elemento sea visible.
-	 *	@param selectorCss : selector de clase del elemento en cuestión. 
-	 */
-	protected void ensureVisibleByXPath(String selectorCss) {
-		WebElement element = this.driver.findElement(By.xpath(selectorCss));
-		this.ensureWebElementVisible(element);
-	}
-	
-	
 	/**
 	 *	Se ejecuta un scroll para que el elemento sea visible.
 	 *	@param nroRegistro : número de registro a seleccionar. 
 	 */
+	@Deprecated
 	protected void ensureVisibleFilaGrilla(String nroRegistro) {
 		WebElement element = this.driver.findElement(By.xpath("//tbody/tr[@data-ri='" 
 				+ nroRegistro + "']"));
@@ -306,6 +326,7 @@ public abstract class AbstractBaseModule {
 	 *	de una grilla de búsqueda.
 	 *	@return String
 	 */
+	@Deprecated
 	protected String getResultadosDevueltosGrillaBusqueda() {
 		return this.driver.findElements(
 			By.xpath("//span[@class='ui-paginator-current']")).get(0).getText();
@@ -316,6 +337,7 @@ public abstract class AbstractBaseModule {
 	 * 	@param cssSelector 
 	 * 	@return Boolean 
 	 */
+	@Deprecated
 	protected Boolean isCeldaAgendaOcupada(String cssSelector) {
 		List<WebElement> elementos = this.driver.findElements(
 			By.cssSelector(cssSelector));
@@ -331,6 +353,7 @@ public abstract class AbstractBaseModule {
 	 * 	@param cssSelector 
 	 * 	@return String 
 	 */
+	@Deprecated
 	protected String getNumeroCeldaAgendaByCssSelector(String cssSelector) {
 		List<WebElement> elementos = this.driver.findElements(
 			By.cssSelector(cssSelector));
@@ -345,6 +368,7 @@ public abstract class AbstractBaseModule {
 	 *	Se devuelve lista con los errores de jQuery.
 	 *	@return List<JQValidatorError> 
 	 */
+	@Deprecated
 	protected List<JQValidatorError> getJQErrors() {
 		ArrayList<JQValidatorError> errors = new ArrayList<JQValidatorError>();
 		List<WebElement> elements = this.driver.findElements(By.xpath("//label[@class='error']"));
