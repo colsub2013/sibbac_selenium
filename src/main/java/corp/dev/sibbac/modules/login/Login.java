@@ -1,8 +1,11 @@
 package corp.dev.sibbac.modules.login;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,42 +32,24 @@ public class Login extends AbstractBaseModule {
 	public void login(String usuario, String pass) throws Exception {
 		LOG.info("Test - login");
 
-		// Se aguarda 10 segs el procesamiento ajax.
-		this.waitForAjax(ConstantesGlobales.TREINTA);
-		
-		WebElement usuarioInputText = this.ctrlSetTextByLocator(
-				ConstantesGlobales.LOCATOR_BY_XPATH, "//*[@ng-model='user.username']", usuario);
-
-		// Se aguarda 10 segs el procesamiento ajax.
+		// Se aguarda 30 segs el procesamiento ajax.
 		this.waitForAjax(ConstantesGlobales.TREINTA);
 		
 		this.ctrlSetTextByLocator(
-				ConstantesGlobales.LOCATOR_BY_XPATH, "//*[@ng-model='user.password']", pass);
+				ConstantesGlobales.LOCATOR_BY_XPATH, "//*[@ng-model='user.username']", usuario);
 
-		LOG.info("Before click");
-		
-		// Se aguarda 10 segs el procesamiento ajax.
+		// Se aguarda 30 segs el procesamiento ajax.
 		this.waitForAjax(ConstantesGlobales.TREINTA);
-
-		WebElement botonSubmit = this.getWebElementByLocator(
-			ConstantesGlobales.LOCATOR_BY_CSS_SELECTOR, ".btn.buscador.mybutton");
-
-//		if (!botonSubmit.isEnabled()) {
-//			new Actions(driver).moveToElement(usuarioInputText).perform();
-//			Thread.sleep(10000);
-//		}
 		
-//		this.ctrlClickByLocatorAndExpr(
-//			ConstantesGlobales.LOCATOR_BY_CSS_SELECTOR, ".btn.buscador.mybutton");
+		WebElement passwordInputText = this.ctrlSetTextByLocator(
+				ConstantesGlobales.LOCATOR_BY_XPATH, "//*[@ng-model='user.password']", pass);
 		
+		// Se pulsa RETURN para el submit de la app
+		passwordInputText.sendKeys(Keys.RETURN);
+
 		LOG.info("After click");
-		
-//		if (!driver.getCurrentUrl().toLowerCase().endsWith("index.xhtml")) {
-//			throw new Exception("Fallo de test - No acepta login enviado");
-//		}
 		LOG.info("url: " + driver.getCurrentUrl());
 		
-		//assert => estoy logueado
 	}
 
 }
