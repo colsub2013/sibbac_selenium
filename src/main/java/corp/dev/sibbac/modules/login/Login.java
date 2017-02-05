@@ -29,8 +29,8 @@ public class Login extends AbstractBaseModule {
 	public void login(String usuario, String pass) throws Exception {
 		LOG.info("Test - login");
 
-		// Se aguarda 30 segs el procesamiento ajax.
-		Thread.sleep(10000);
+		// Se aguarda el procesamiento.
+		Thread.sleep(5000);
 		
 		this.ctrlSetTextByLocator(
 				ConstantesGlobales.LOCATOR_BY_XPATH, "//*[@ng-model='user.username']", usuario);

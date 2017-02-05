@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.MarionetteDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -424,6 +426,38 @@ public abstract class AbstractBaseModule {
 			errors.add(error);
 		}
 		return errors;
+	}
+	
+	/**
+	 *	Se obtiene instancia de WebElement aguardando un tiempo prudencial a que sea clickable.
+	 *	@param locator
+	 *	@param expression
+	 *	@param timeout en segundos
+	 *	@return WebElement
+	 */
+	protected WebElement getWebElementUntilClickableByLocator(String locator, String expression, int timeout) {
+		WebElement element = null;
+		switch (locator) {
+			case ConstantesGlobales.LOCATOR_BY_CSS_SELECTOR:
+				element = (new WebDriverWait(driver, timeout))
+					.until(ExpectedConditions.elementToBeClickable(By.cssSelector(expression)));
+				break;
+			case ConstantesGlobales.LOCATOR_BY_ID:
+				element = (new WebDriverWait(driver, timeout))
+					.until(ExpectedConditions.elementToBeClickable(By.id(expression)));
+				break;
+			case ConstantesGlobales.LOCATOR_BY_LINK_TEXT:
+				element = (new WebDriverWait(driver, timeout))
+					.until(ExpectedConditions.elementToBeClickable(By.linkText(expression)));		
+				break;	
+			case ConstantesGlobales.LOCATOR_BY_XPATH:
+				element = (new WebDriverWait(driver, timeout))
+					.until(ExpectedConditions.elementToBeClickable(By.xpath(expression)));
+				break;
+			default:
+				break;
+		}
+		return element;
 	}
 	
 }
