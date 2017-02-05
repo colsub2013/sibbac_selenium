@@ -58,5 +58,14 @@ public interface ConstantesGlobales {
 	
 	/** Locators - By ByXpath.  */
 	String LOCATOR_BY_XPATH = "ByXpath";
+	
+	/** Browser para bundle */
+	String BROWSER = "browser";
+	
+	/** Browser MFF */
+	String BROWSER_MFF = "firefox";
+	
+	/** Browser MFF */
+	String BROWSER_CHROME = "chrome";
 
 }

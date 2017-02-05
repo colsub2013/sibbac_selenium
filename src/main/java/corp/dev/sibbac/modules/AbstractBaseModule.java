@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.MarionetteDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import com.google.common.base.Stopwatch;
 
 import corp.dev.sibbac.constantes.ConstantesGlobales;
 import corp.dev.sibbac.entities.JQValidatorError;
+import corp.dev.sibbac.helpers.ConfigHelper;
 
 /**
  *	Contiene métodos para fijar el driver más
@@ -72,7 +74,21 @@ public abstract class AbstractBaseModule {
 	protected void waitForAjax(double secs) throws Exception {
 		LOG.debug("BaseModule - waitForAjax :: start");
 		waitIdle(1);
-		MarionetteDriver ffDriver = (MarionetteDriver) this.driver;
+		MarionetteDriver ffDriver = null;
+		ChromeDriver chromeDriver = null;
+		switch (ConfigHelper.getString(ConstantesGlobales.BROWSER)) {
+			case ConstantesGlobales.BROWSER_MFF:
+				// Firefox Driver
+				ffDriver = (MarionetteDriver) this.driver;
+				break;
+			case ConstantesGlobales.BROWSER_CHROME:
+				// Chrome Driver
+				chromeDriver = new ChromeDriver();
+				break;
+			default:
+				break;
+		}
+		
 		
 		/**
 		 * 	Deprecado - actualizar.
@@ -85,7 +101,17 @@ public abstract class AbstractBaseModule {
         		LOG.error("BaseModule - waitForAjax :: timeout");
             	throw new Exception("Timeout");
             }
-            boolean ajaxIsComplete = new Boolean(ffDriver.executeScript("return jQuery.active == 0").toString());
+            boolean ajaxIsComplete = false;
+            switch (ConfigHelper.getString(ConstantesGlobales.BROWSER)) {
+            	case ConstantesGlobales.BROWSER_MFF:
+                    ajaxIsComplete = new Boolean(ffDriver.executeScript("return jQuery.active == 0").toString());
+            		break;
+            	case ConstantesGlobales.BROWSER_CHROME:
+                    ajaxIsComplete = new Boolean(chromeDriver.executeScript("return jQuery.active == 0").toString());
+            		break;	
+            }
+            
+
             if (ajaxIsComplete) {
                 break;
             }
@@ -311,9 +337,20 @@ public abstract class AbstractBaseModule {
 	 *	@param element : elemento en cuestión. 
 	 */
 	protected void ensureWebElementVisible(WebElement element) {
-		((MarionetteDriver) this.driver).executeScript(
-			"window.scrollTo(0, " 
-		+ (element.getLocation().y - ConstantesGlobales.CIENTO_CINCUENTA) + ");");
+		switch (ConfigHelper.getString(ConstantesGlobales.BROWSER)) {
+			case ConstantesGlobales.BROWSER_MFF:
+				((MarionetteDriver) this.driver).executeScript(
+						"window.scrollTo(0, " 
+					+ (element.getLocation().y - ConstantesGlobales.CIENTO_CINCUENTA) + ");");
+				break;
+			case ConstantesGlobales.BROWSER_CHROME:
+				((ChromeDriver) this.driver).executeScript(
+						"window.scrollTo(0, " 
+					+ (element.getLocation().y - ConstantesGlobales.CIENTO_CINCUENTA) + ");");
+				break;
+		}
+		
+
 	}
 
 	/**

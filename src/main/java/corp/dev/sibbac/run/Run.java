@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.MarionetteDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
@@ -33,18 +34,36 @@ public class Run {
 		// Setup de la aplicación
 		setup();
 		LOG.info("Aplicación inicializada.");
-		
-		System.setProperty("webdriver.gecko.driver", "geckodriver-v0.14.0-win64/geckodriver.exe");
-		
-		// Firefox Driver
-		LOG.info("Inicializando firefox...");
-		
-		DesiredCapabilities cap = DesiredCapabilities.firefox();
-        cap.setCapability("marionette", true);
-        WebDriver driver = new MarionetteDriver(cap);
-		
+
+		WebDriver driver = null;
+		switch (ConfigHelper.getString(ConstantesGlobales.BROWSER)) {
+			case ConstantesGlobales.BROWSER_MFF:
+				// Firefox Driver
+				LOG.info("Inicializando firefox...");
+				System.setProperty("webdriver.gecko.driver", "geckodriver-v0.14.0-win64/geckodriver.exe");
+				
+				DesiredCapabilities cap = DesiredCapabilities.firefox();
+		        cap.setCapability("marionette", true);
+		        driver = new MarionetteDriver(cap);
+				
+				LOG.info("Firefox inicializado.");
+				break;
+			case ConstantesGlobales.BROWSER_CHROME:
+				// Chrome Driver
+				LOG.info("Inicializando Chrome...");
+				System.setProperty("webdriver.chrome.driver", "chromedriver/chromedriver.exe");
+				
+				driver = new ChromeDriver();
+				LOG.info("Inicializando Chrome...");
+				break;
+			
+			default:
+				break;
+			
+		}
+
+		// Se maximiza ventana
 		driver.manage().window().maximize();
-		LOG.info("Firefox inicializado.");
 
 		// Home Page
 		String baseURL = ConfigHelper.getString(ConstantesGlobales.BASE_URL);
@@ -65,7 +84,7 @@ public class Run {
 		// ======================== Final
 
 //		driver.quit();
-		turnOffGeckoDriver();
+		turnOffDriver();
 		
 	}
 	
@@ -78,16 +97,27 @@ public class Run {
 		PropertyConfigurator.configure(configFile.getAbsolutePath());
 	}
 	
-	private static void turnOffGeckoDriver() {
+	private static void turnOffDriver() {
 		boolean isDebug = java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments().toString().indexOf("-agentlib:jdwp") > 0;
-		try {
-		    if (isDebug)
-		        Runtime.getRuntime().exec("taskkill /F /IM geckodriver.exe");
-		} catch (IOException e) {
-		    e.printStackTrace();
+		
+		switch (ConfigHelper.getString(ConstantesGlobales.BROWSER)) {
+			case ConstantesGlobales.BROWSER_MFF:
+				try {
+				    if (isDebug)
+				        Runtime.getRuntime().exec("taskkill /F /IM geckodriver.exe");
+				} catch (IOException e) {
+				    e.printStackTrace();
+				}
+				break;
+			case ConstantesGlobales.BROWSER_CHROME:
+				try {
+				    if (isDebug)
+				        Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe");
+				} catch (IOException e) {
+				    e.printStackTrace();
+				}
+				break;
 		}
 	}
-	
-	
 	
 }

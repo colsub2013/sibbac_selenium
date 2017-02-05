@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import corp.dev.sibbac.constantes.ConstantesGlobales;
 import corp.dev.sibbac.modules.AbstractBaseModule;
 
 /**
@@ -35,75 +34,23 @@ public class GestorProcesos extends AbstractBaseModule {
 		
 		HashMap<String, Object> mapa = new HashMap<String, Object>();
 		
-		// Voy a home
-//		WebElement linkHome = this.ctrlClickByLocatorAndExpr(
-//				ConstantesGlobales.LOCATOR_BY_CSS_SELECTOR, ".img-responsive");
-//		linkHome.click();
-		
-		// Se aguarda 10 segs el procesamiento ajax.
-//		this.waitForAjax(ConstantesGlobales.DIEZ);
-		
 		Thread.sleep(10000);
 
 		WebElement linkConfig = (new WebDriverWait(driver, 20))
 		        .until(ExpectedConditions.elementToBeClickable(By.linkText("Configuración")));
 		linkConfig.click();
 
-		WebElement linkGP = this.getWebElementByLocator(
-		ConstantesGlobales.LOCATOR_BY_LINK_TEXT, "Gestor de Procesos");
+		WebElement linkGP = (new WebDriverWait(driver, 20))
+		        .until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@ng-href='#/configuracion/jobs                                                                                                                                                                                     ']")));
 
-		while (!linkGP.isDisplayed()) {
-			linkConfig.click();
-		}
-		linkGP.click();
-
-		
-//		WebElement linkGestorProcesos = (new WebDriverWait(driver, 20))
-//		        .until(ExpectedConditions.elementToBeClickable(By.linkText("Gestor de Procesos")));
-//		linkGestorProcesos.click();
-
-		
-		// Voy a pantalla de búsqueda
-//		WebElement linkGP = driver.findElements(
-//			By.xpath("//a[@ng-href='#/configuracion/jobs']")).get(0);
-
-//		WebElement linkConfig = this.ctrlClickByLocatorAndExpr(
-//				ConstantesGlobales.LOCATOR_BY_LINK_TEXT, "Configuración");
-//		linkConfig.click();
-//		
-//		Thread.sleep(1000);
-//		
-//		WebElement linkGP = this.ctrlClickByLocatorAndExpr(
-//				ConstantesGlobales.LOCATOR_BY_LINK_TEXT, "Gestor de Procesos");
-//		linkGP.click();
-		
-//		// Búsqueda sin filtros
-//		LOG.info("Búsqueda sin filtros");
-//		this.ctrlClickByLocatorAndExpr(
-//			ConstantesGlobales.LOCATOR_BY_ID, "formBusquedaCarpetaJudicial:buscar");
-//		
-//		LOG.info("Cantidad de registros: " + this.getResultadosDevueltosGrillaBusqueda());
-//		mapa.put("bcjResultado1", this.getResultadosDevueltosGrillaBusqueda());
-//		
-//		// Se limpia la búsqueda
-//		this.ctrlClickByLocatorAndExpr(
-//			ConstantesGlobales.LOCATOR_BY_ID, "formBusquedaCarpetaJudicial:limpiar");
-//		
-//		// Búsqueda con filtros
-//		LOG.info("Búsqueda c/ etapa de proceso: ejecución y cuij 12");
-//		ctrlSetText("formBusquedaCarpetaJudicial:cuij", "12");
-//		ctrlSetCombo("formBusquedaCarpetaJudicial:etapasProceso", "EJECUCION");
-//		this.ctrlCalendar("formBusquedaCarpetaJudicial:fechaDesde_input", "10", -ConstantesGlobales.CINCO);
-//		this.ctrlClickByLocatorAndExpr(
-//			ConstantesGlobales.LOCATOR_BY_ID, "formBusquedaCarpetaJudicial:buscar");
-//		LOG.info("Cantidad de registros: " + this.getResultadosDevueltosGrillaBusqueda());
-//		mapa.put("bcjResultado2", this.getResultadosDevueltosGrillaBusqueda());
-		
-		// Se aguarda 10 segs el procesamiento ajax.
-		this.waitForAjax(ConstantesGlobales.DIEZ);
+		if (!linkGP.isDisplayed()) {
+			linkGP = (new WebDriverWait(driver, 20))
+			        .until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@ng-href='#/configuracion/jobs                                                                                                                                                                                     ']")));
+		} else {
+			linkGP.click();
+		}	
 		
 		LOG.info("Test - FIN ejecutarProceso");
-		
 		return mapa;
 	}
 

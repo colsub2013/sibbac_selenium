@@ -30,14 +30,11 @@ public class Login extends AbstractBaseModule {
 		LOG.info("Test - login");
 
 		// Se aguarda 30 segs el procesamiento ajax.
-		this.waitForAjax(ConstantesGlobales.TREINTA);
+		Thread.sleep(10000);
 		
 		this.ctrlSetTextByLocator(
 				ConstantesGlobales.LOCATOR_BY_XPATH, "//*[@ng-model='user.username']", usuario);
 
-		// Se aguarda 30 segs el procesamiento ajax.
-		this.waitForAjax(ConstantesGlobales.TREINTA);
-		
 		WebElement passwordInputText = this.ctrlSetTextByLocator(
 				ConstantesGlobales.LOCATOR_BY_XPATH, "//*[@ng-model='user.password']", pass);
 		
