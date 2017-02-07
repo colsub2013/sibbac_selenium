@@ -3,9 +3,9 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ogj</groupId>
-	<artifactId>ogj_selenium</artifactId>
+	<artifactId>sibbac_selenium</artifactId>
 	<version>1.0.0</version>
-	<name>ogj_selenium</name>
+	<name>sibbac_selenium</name>
 
 	<build>
 		<plugins>
