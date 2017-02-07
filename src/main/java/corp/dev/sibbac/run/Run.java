@@ -31,6 +31,7 @@ public class Run {
 	 */
 	public static void main(String[] args) throws Exception {
 		
+		try {
 		// Setup de la aplicación
 		setup();
 		LOG.info("Aplicación inicializada.");
@@ -67,7 +68,7 @@ public class Run {
 
 		// Home Page
 		String baseURL = ConfigHelper.getString(ConstantesGlobales.BASE_URL);
-		driver.get(baseURL + "/sibbac20/#/login");
+		driver.get(baseURL + ConfigHelper.getString(ConstantesGlobales.URL_LOGIN));
 		
 		// ======================== Comienzo
 
@@ -83,9 +84,11 @@ public class Run {
 
 		// ======================== Final
 
+		} catch (Exception ex) {
+			LOG.error("Se ha producido un error: " + ex.getLocalizedMessage());
+		}
 //		driver.quit();
 		turnOffDriver();
-		
 	}
 	
 	/**

@@ -1,7 +1,6 @@
 package corp.dev.sibbac.modules.gestorprocesos;
 
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -33,21 +32,31 @@ public class GestorProcesos extends AbstractBaseModule {
 		
 		HashMap<String, Object> mapa = new HashMap<String, Object>();
 		
-		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+//		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 
+		this.aguardarRenderizadoPaginaAngular(driver, 90, 100, 10000);
+		
+		LOG.info("Test - FIN Espera rendering");
+		
 		WebElement linkConfig = this.getWebElementUntilClickableByLocator(
-				ConstantesGlobales.LOCATOR_BY_LINK_TEXT, "Configuración", 20);
+				ConstantesGlobales.LOCATOR_BY_LINK_TEXT, "Configuración", 90);
 		linkConfig.click();
 
-		WebElement linkGP = this.getWebElementUntilClickableByLocator(
-				ConstantesGlobales.LOCATOR_BY_XPATH, "//a[@ng-href='#/configuracion/jobs                                                                                                                                                                                     ']", 20);
+		Thread.sleep(10000);
 		
-		while (!linkGP.isDisplayed() && linkGP.isEnabled()) {
+		WebElement linkGP = this.getWebElementUntilClickableByLocator(
+				ConstantesGlobales.LOCATOR_BY_XPATH, "//a[@ng-href='#/configuracion/jobs                                                                                                                                                                                     ']", 90);
+		
+		while (!linkGP.isDisplayed() && !linkGP.isEnabled()) {
 			LOG.info("LinkGP no esta visible ni habilitado");
 			linkGP = this.getWebElementUntilClickableByLocator(
-					ConstantesGlobales.LOCATOR_BY_XPATH, "//a[@ng-href='#/configuracion/jobs                                                                                                                                                                                     ']", 20);
-		} 
-		linkGP.click();
+					ConstantesGlobales.LOCATOR_BY_XPATH, "//a[@ng-href='#/configuracion/jobs                                                                                                                                                                                     ']", 90);
+		}
+		
+		if (linkGP.isDisplayed() && linkGP.isEnabled()) {
+			LOG.info("LinkGP esta visible y habilitado");
+			linkGP.click();
+		}
 		LOG.info("Test - FIN ejecutarProceso");
 		return mapa;
 	}

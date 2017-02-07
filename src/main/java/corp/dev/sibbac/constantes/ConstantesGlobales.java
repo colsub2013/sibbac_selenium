@@ -8,6 +8,9 @@ public interface ConstantesGlobales {
 	/** Clave mapa para url del servidor. */
 	String BASE_URL = "baseURL";
 
+	/** Clave mapa para url Login. */
+	String URL_LOGIN = "urlLogin";
+	
 	/** Complemento de URL para login de usuario. */
 	String OGJ_USUARIO_LOGIN_XHTML = "/ogj/usuario/login.xhtml";
 	

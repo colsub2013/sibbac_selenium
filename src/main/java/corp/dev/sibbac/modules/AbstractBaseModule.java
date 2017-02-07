@@ -19,6 +19,7 @@ import com.google.common.base.Stopwatch;
 import corp.dev.sibbac.constantes.ConstantesGlobales;
 import corp.dev.sibbac.entities.JQValidatorError;
 import corp.dev.sibbac.helpers.ConfigHelper;
+import corp.dev.sibbac.utils.AdditionalConditions;
 
 /**
  *	Contiene métodos para fijar el driver más
@@ -458,6 +459,23 @@ public abstract class AbstractBaseModule {
 				break;
 		}
 		return element;
+	}
+	
+	/**
+	 * 	Se aguarda renderizacion de la pagina para app con Angular.
+	 * 	@param driver
+	 * 	@param timeOutInSeconds (segundos)
+	 * 	@param sleepInMillis (milisegundos)
+	 * 	@param sleepTimeMillis (milisegundos)
+	 * 	@throws Exception 
+	 */
+	protected void aguardarRenderizadoPaginaAngular(
+		WebDriver driver, long timeOutInSeconds, long sleepInMillis, long sleepTimeMillis) 
+			throws Exception {
+		WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds, sleepInMillis);
+		wait.until(AdditionalConditions.angularHasFinishedProcessing());
+		// Se pone a dormir esto 10 segundos
+		Thread.sleep(sleepTimeMillis);
 	}
 	
 }
