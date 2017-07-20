@@ -42,3 +42,7 @@ https://github.com/mozilla/geckodriver/releases
 http://stackoverflow.com/questions/39163331/getting-error-found-argument-webdriver-port-which-wasnt-expected-or-isnt
 http://stackoverflow.com/questions/37785686/how-to-use-the-gecko-executable-with-selenium
 http://seleniumsimplified.com/2016/04/how-to-use-the-firefox-marionette-driver/
+
+FIREFOX PORTABLE (OLD VERSIONS)
+:::::::::::::::::::::::::::::::
+https://mozilla-firefox-portable.en.uptodown.com/windows/old
