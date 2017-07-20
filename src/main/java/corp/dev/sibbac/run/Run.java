@@ -32,9 +32,9 @@ public class Run {
 	public static void main(String[] args) throws Exception {
 		
 		try {
-		// Setup de la aplicación
+		// Setup de la aplicacion
 		setup();
-		LOG.info("Aplicación inicializada.");
+		LOG.info("Aplicacion inicializada.");
 
 		WebDriver driver = null;
 		switch (ConfigHelper.getString(ConstantesGlobales.BROWSER)) {
@@ -92,7 +92,7 @@ public class Run {
 	}
 	
 	/**
-	 * Setup de la aplicación.
+	 * Setup de la aplicacion.
 	 * 
 	 */
 	private static void setup() {

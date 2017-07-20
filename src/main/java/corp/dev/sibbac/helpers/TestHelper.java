@@ -19,7 +19,7 @@ public final class TestHelper {
 	 * 	@param resultado 
 	 *  @return int[]
 	 * 	array[0]: Primer registro del paginador
-	 * 	array[1]: Último registro del paginador
+	 * 	array[1]: ultimo registro del paginador
 	 * 	array[2]: Total de registros devueltos
 	 */
 	public static int[] getResultadosGrilla(String resultado) {
@@ -39,7 +39,7 @@ public final class TestHelper {
 	}
 	
 	/**
-	 * 	Switch que devuelve si un testeo está habilitado.
+	 * 	Switch que devuelve si un testeo esta habilitado.
 	 * 	@param clave 
 	 * 	@return Boolean
 	 */

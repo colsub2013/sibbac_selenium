@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 	Contiene métodos de utilidad para la configuración
+ * 	Contiene metodos de utilidad para la configuracion
  * 	de archivos .properties. 
  */
 public final class ConfigHelper {
@@ -34,7 +34,7 @@ public final class ConfigHelper {
 	// Public methods
 
 	/**
-	 * Inicialización estática de ConfigHelper.
+	 * Inicializaciï¿½n estï¿½tica de ConfigHelper.
 	 */
 	public static void init() {
 		if (!initialized) {
@@ -138,7 +138,7 @@ public final class ConfigHelper {
 	// Private methods
 
 	/**
-	 * Procedimiento interno de inicialización.
+	 * Procedimiento interno de inicializaciï¿½n.
 	 */
 	private static void internalInit() {
 		properties = new Properties();
@@ -156,41 +156,41 @@ public final class ConfigHelper {
 			LOG.info("Ambiente inicializado: --===[" + env + "]===--");
 			LOG.info("Directorio de propiedades : --===[" + propsDir + "]===--");
 
-			// Archivo de configuración local
+			// Archivo de configuraciï¿½n local
 			try {
 				addPropertiesFile(ConfigHelper.class.getClassLoader().getResourceAsStream(
 					CONFIG_FILE_PREFIX + ".properties"));
-				LOG.info("Archivo de configuración en EAR [" 
-						+ CONFIG_FILE_PREFIX + ".properties] leído en forma exitosa");
+				LOG.info("Archivo de configuraciï¿½n en EAR [" 
+						+ CONFIG_FILE_PREFIX + ".properties] leï¿½do en forma exitosa");
 			} catch (Exception e) { 
 				e.printStackTrace();
 			}
 			
-			// Archivo de configuración local por entorno
+			// Archivo de configuraciï¿½n local por entorno
 			try {
 				if (null != env) {
-					// Archivo de configuración local
+					// Archivo de configuraciï¿½n local
 					addPropertiesFile(ConfigHelper.class.getClassLoader().getResourceAsStream(
 						CONFIG_FILE_PREFIX + "_" + env + ".properties"));
-					LOG.info("Archivo de configuración en EAR [" + CONFIG_FILE_PREFIX 
-						+ "_" + env + ".properties] leído en forma exitosa");
+					LOG.info("Archivo de configuraciï¿½n en EAR [" + CONFIG_FILE_PREFIX 
+						+ "_" + env + ".properties] leï¿½do en forma exitosa");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
-			// Archivo de configuración local por path
+			// Archivo de configuraciï¿½n local por path
 			try {
 				if (propsDir != null) {
 					addPropertiesFile(propsDir + CONFIG_FILE_PREFIX + ".properties");
-					LOG.info("Archivo de configuración en VM prop [" 
-					+ CONFIG_FILE_PREFIX + ".properties] leído en forma exitosa");
+					LOG.info("Archivo de configuraciï¿½n en VM prop [" 
+					+ CONFIG_FILE_PREFIX + ".properties] leï¿½do en forma exitosa");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
-			// Archivo de configuración local por path + env
+			// Archivo de configuraciï¿½n local por path + env
 			LOG.info("Listados de propiedades finales");
 			try {
 				if (propsDir != null && env != null) {

@@ -3,7 +3,7 @@ package corp.dev.sibbac.entities;
 import java.io.Serializable;
 
 /**
- *	Encapsula datos de errores por validación jQuery. 
+ *	Encapsula datos de errores por validacion jQuery. 
  */
 public class JQValidatorError implements Serializable {
 	

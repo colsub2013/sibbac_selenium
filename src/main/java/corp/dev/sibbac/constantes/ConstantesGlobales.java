@@ -23,31 +23,31 @@ public interface ConstantesGlobales {
 	/** Clave mapa para url del servidor. */
 	String MAIL_VALIDO = "mail_valido";
 	
-	/** Números. */
+	/** Numeros. */
 	int TRES = 3;
 
-	/** Números. */
+	/** Numeros. */
 	int CUATRO = 4;
 
-	/** Números. */
+	/** Numeros. */
 	int CINCO = 5;
 
-	/** Números. */
+	/** Numeros. */
 	int DIEZ = 10;
 
-	/** Números. */
+	/** Numeros. */
 	int TREINTA = 30;
 	
-	/** Números. */
+	/** Numeros. */
 	int CIEN = 100;
 
-	/** Números. */
+	/** Numeros. */
 	int CIENTO_CINCUENTA = 150;
 	
-	/** Números. */
+	/** Numeros. */
 	int MIL = 1000;
 	
-	/** Números. */
+	/** Numeros. */
 	int MIL_MILLONES = 1000000000;
 	
 	/** Locators - By cssSelector.  */

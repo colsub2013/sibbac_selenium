@@ -11,8 +11,8 @@ import corp.dev.sibbac.constantes.ConstantesGlobales;
 import corp.dev.sibbac.modules.AbstractBaseModule;
 
 /**
- *	Ejecución de pruebas y relevamiento de resultados para
- *  la funcionalidad de búsqueda de carpeta judicial. 
+ *	Ejecucion de pruebas y relevamiento de resultados para
+ *  la funcionalidad de busqueda de carpeta judicial. 
  */
 public class GestorProcesos extends AbstractBaseModule {
 	
@@ -39,7 +39,7 @@ public class GestorProcesos extends AbstractBaseModule {
 		LOG.info("Test - FIN Espera rendering");
 		
 		WebElement linkConfig = this.getWebElementUntilClickableByLocator(
-				ConstantesGlobales.LOCATOR_BY_LINK_TEXT, "Configuración", 90);
+				ConstantesGlobales.LOCATOR_BY_LINK_TEXT, "Configuraciï¿½n", 90);
 		linkConfig.click();
 
 		Thread.sleep(10000);

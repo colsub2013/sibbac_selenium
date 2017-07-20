@@ -22,7 +22,7 @@ import corp.dev.sibbac.helpers.ConfigHelper;
 import corp.dev.sibbac.utils.AdditionalConditions;
 
 /**
- *	Contiene métodos para fijar el driver más
+ *	Contiene metodos para fijar el driver mas
  *	los controles necesarios de los componentes
  *	de JSF/Primefaces.  
  */
@@ -42,7 +42,7 @@ public abstract class AbstractBaseModule {
 	}
 
 	/**
-	 *	Se para la ejecución por 5 segundos. 
+	 *	Se para la ejecucion por 5 segundos. 
 	 * 	@throws Exception 
 	 */
 	protected static void waitIdle() throws Exception {
@@ -50,8 +50,8 @@ public abstract class AbstractBaseModule {
 	}
 
 	/**
-	 *	Se para la ejecución por la cantidad de segundos especificada. 
-	 * 	@param secs : Segundos a detener la ejecución
+	 *	Se para la ejecucion por la cantidad de segundos especificada. 
+	 * 	@param secs : Segundos a detener la ejecucion
 	 * 	@throws Exception 
 	 */
 	protected static void waitIdle(double secs) throws Exception {
@@ -61,7 +61,7 @@ public abstract class AbstractBaseModule {
 	}
 
 	/**
-	 *	Ejecución del procesamiento Ajax por 30 segundos.
+	 *	Ejecucion del procesamiento Ajax por 30 segundos.
 	 *	@throws Exception 
 	 */
 	protected void waitForAjax() throws Exception {
@@ -69,7 +69,7 @@ public abstract class AbstractBaseModule {
 	}
 
 	/**
-	 *	Ejecución del procesamiento Ajax por la 
+	 *	Ejecucion del procesamiento Ajax por la 
 	 *	cantidad de segundos especificada.
 	 *	@param secs : segundos a detener el procesamiento ajax
 	 *	@throws Exception 
@@ -145,13 +145,13 @@ public abstract class AbstractBaseModule {
 	}
 	
 	/**
-	 * 	Controla el accionamiento del click por el locator y expresión que se le pase.
+	 * 	Controla el accionamiento del click por el locator y expresiï¿½n que se le pase.
 	 * 	@param locator valores posibles:
 	 * 	> LOCATOR_BY_CSS_SELECTOR
 	 * 	> LOCATOR_BY_ID
 	 * 	> LOCATOR_BY_XPATH
 	 * 
-	 * 	@param expression la expresión según el tipo de locator
+	 * 	@param expression la expresiï¿½n segï¿½n el tipo de locator
 	 * 	@return element
 	 * 	@throws Exception 
 	 */
@@ -169,7 +169,7 @@ public abstract class AbstractBaseModule {
 	
 	
 	/**
-	 *	Ejecuta un click en el número de registro de la grilla de búsqueda que se le pasa.
+	 *	Ejecuta un click en el nï¿½mero de registro de la grilla de bï¿½squeda que se le pasa.
 	 * 	@param nroRegistro  
 	 * 	@throws Exception 
 	 */
@@ -201,9 +201,9 @@ public abstract class AbstractBaseModule {
 		
 //	/**
 //	 *	Permite seleccionar una fecha del componente 
-//	 *	calendar en base a los parámetros.
+//	 *	calendar en base a los parï¿½metros.
 //	 *	id: id del elemento
-//	 *	String: número de día a seleccionar
+//	 *	String: nï¿½mero de dï¿½a a seleccionar
 //	 *	int desplazMes: si es:
 //	 *	. 0: mes actual
 //	 *	. n > 0: n meses al futuro
@@ -236,7 +236,7 @@ public abstract class AbstractBaseModule {
 //	/**
 //	 * 	Selecciona un valor para el combo.
 //	 * 	@param id : id del combo (elemento select HTML)
-//	 * 	@param val : valor de la etiqueta con la que seleccionará el elemento
+//	 * 	@param val : valor de la etiqueta con la que seleccionarï¿½ el elemento
 //	 * 	@throws Exception	
 //	 */
 //	protected void ctrlSetCombo(String id, String val) throws Exception {
@@ -269,9 +269,9 @@ public abstract class AbstractBaseModule {
 //	}
 //
 //	/**
-//	 *	Permite fijar ingresar un texto a un elemento HTML input text ó textarea.
+//	 *	Permite fijar ingresar un texto a un elemento HTML input text ï¿½ textarea.
 //	 * 	@param id : id del elemento input
-//	 * 	@param text : texto a ingresar en el elemento input text ó textarea.
+//	 * 	@param text : texto a ingresar en el elemento input text ï¿½ textarea.
 //	 * 	@throws Exception 
 //	 */
 //	protected void ctrlSetText(String id, String text) throws Exception {
@@ -337,7 +337,7 @@ public abstract class AbstractBaseModule {
 	
 	/**
 	 *	Se ejecuta un scroll para que el elemento sea visible.
-	 *	@param element : elemento en cuestión. 
+	 *	@param element : elemento en cuestiï¿½n. 
 	 */
 	protected void ensureWebElementVisible(WebElement element) {
 		switch (ConfigHelper.getString(ConstantesGlobales.BROWSER)) {
@@ -358,7 +358,7 @@ public abstract class AbstractBaseModule {
 
 	/**
 	 *	Se ejecuta un scroll para que el elemento sea visible.
-	 *	@param nroRegistro : número de registro a seleccionar. 
+	 *	@param nroRegistro : numero de registro a seleccionar. 
 	 */
 	@Deprecated
 	protected void ensureVisibleFilaGrilla(String nroRegistro) {
@@ -369,7 +369,7 @@ public abstract class AbstractBaseModule {
 	
 	/**
 	 *	Obtiene la cadena de texto con los resultados devueltos
-	 *	de una grilla de búsqueda.
+	 *	de una grilla de busqueda.
 	 *	@return String
 	 */
 	@Deprecated
@@ -379,7 +379,7 @@ public abstract class AbstractBaseModule {
 	}
 	
 	/**
-	 * 	Determina si la celda en la agenda está ocupada por selector.
+	 * 	Determina si la celda en la agenda esta ocupada por selector.
 	 * 	@param cssSelector 
 	 * 	@return Boolean 
 	 */
@@ -395,7 +395,7 @@ public abstract class AbstractBaseModule {
 	}
 	
 	/**
-	 * 	Determina el número de celda de la agenda según el selector.
+	 * 	Determina el numero de celda de la agenda segun el selector.
 	 * 	@param cssSelector 
 	 * 	@return String 
 	 */

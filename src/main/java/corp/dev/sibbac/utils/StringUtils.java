@@ -7,7 +7,7 @@ import java.util.UUID;
 import corp.dev.sibbac.constantes.ConstantesGlobales;
 
 /**
- * Utilidades básicas para strings.
+ * Utilidades basicas para strings.
  */
 public final class StringUtils {
 
@@ -31,7 +31,7 @@ public final class StringUtils {
 	}
 	
 	/**
-	 * Realiza un encodeado básico solo a nivel de caracteres especiales.
+	 * Realiza un encodeado basico solo a nivel de caracteres especiales.
 	 * 
 	 * @param texto Texto a encodear.
 	 * @return Texto encodeado.
@@ -43,25 +43,25 @@ public final class StringUtils {
 		if (textoAux == null) {
 			return "";
 		} else {
-			textoAux = textoAux.replace("á", "&aacute;");
-			textoAux = textoAux.replace("é", "&eacute;");
-			textoAux = textoAux.replace("í", "&iacute;");
-			textoAux = textoAux.replace("ó", "&oacute;");
-			textoAux = textoAux.replace("ú", "&uacute;");
-			textoAux = textoAux.replace("Á", "&Aacute;");
-			textoAux = textoAux.replace("É", "&Eacute;");
-			textoAux = textoAux.replace("Í", "&Iacute;");
-			textoAux = textoAux.replace("Ó", "&Oacute;");
-			textoAux = textoAux.replace("Ú", "&Uacute;");
-			textoAux = textoAux.replace("ñ", "&ntilde;");
-			textoAux = textoAux.replace("Ñ", "&Ntilde;");
-			textoAux = textoAux.replace("º", "&deg;");
+			textoAux = textoAux.replace("ï¿½", "&aacute;");
+			textoAux = textoAux.replace("ï¿½", "&eacute;");
+			textoAux = textoAux.replace("ï¿½", "&iacute;");
+			textoAux = textoAux.replace("ï¿½", "&oacute;");
+			textoAux = textoAux.replace("ï¿½", "&uacute;");
+			textoAux = textoAux.replace("ï¿½", "&Aacute;");
+			textoAux = textoAux.replace("ï¿½", "&Eacute;");
+			textoAux = textoAux.replace("ï¿½", "&Iacute;");
+			textoAux = textoAux.replace("ï¿½", "&Oacute;");
+			textoAux = textoAux.replace("ï¿½", "&Uacute;");
+			textoAux = textoAux.replace("ï¿½", "&ntilde;");
+			textoAux = textoAux.replace("ï¿½", "&Ntilde;");
+			textoAux = textoAux.replace("ï¿½", "&deg;");
 			return textoAux;
 		}
 	}
 	
 	/**
-	 * Realiza un encodeado básico solo a nivel de caracteres especiales.
+	 * Realiza un encodeado basico solo a nivel de caracteres especiales.
 	 * 
 	 * @param mapaOriginal Mapa original
 	 * @return Mapa encodeado.
@@ -122,13 +122,13 @@ public final class StringUtils {
 	}
 	
 	/**
-	 * Normaliza un string para búsquedas en base de datos
+	 * Normaliza un string para busquedas en base de datos
 	 * con FN_NORMALIZAR_CADENA.
 	 * @param value string original
 	 * @return string normalizado
 	 */
 	public static String fnNormalizarCadena(String value) {
-	    String original = "ÁÉÍÓÖÚÜ";
+	    String original = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
 	    String ascii = "AEIOOUU";
 	    String output = safeNull(value).toUpperCase();
 	    for (int i = 0; i < original.length(); i++) {
@@ -139,9 +139,9 @@ public final class StringUtils {
 	
 	/**
 	 *	Determina si la cadena de caracteres pasada es una
-	 *	expresión numérica.
-	 *	@param str expresión a ser evaluada
-	 *	@return boolean indica si es numérico ó no 
+	 *	expresion numerica.
+	 *	@param str expresion a ser evaluada
+	 *	@return boolean indica si es numorico o no 
 	 */
 	public static boolean esNumerico(String str) {
 	    if (str == null) {
@@ -156,10 +156,10 @@ public final class StringUtils {
 	}
 	
 	/**
-	 *	Devuelve un String aleatorio con el tamaño 
+	 *	Devuelve un String aleatorio con el tamano 
 	 *	que se especifique.
-	 *	@param cantidadCaracteres : tamaño de la cadena de caracteres aleatoria
-	 *	@return String aleatorio alfanumérico
+	 *	@param cantidadCaracteres : tamano de la cadena de caracteres aleatoria
+	 *	@return String aleatorio alfanumerico
 	 */
 	public static String getStringAleatorio(int cantidadCaracteres) {
 		return UUID.randomUUID().toString().replaceAll("-", "").substring(
@@ -167,9 +167,9 @@ public final class StringUtils {
 	}
 	
 	/**
-	 *	Devuelve un número aleatorio con el tamaño que se especifique.
-	 *	@param cantidadNumeros longitud expresión numérica a devolver
-	 *	@return String expresión alfanumérica aleatoria
+	 *	Devuelve un numero aleatorio con el tamano que se especifique.
+	 *	@param cantidadNumeros longitud expresion numerica a devolver
+	 *	@return String expresion alfanumerica aleatoria
 	 */
 	public static String getNumericoAleatorioAsString(int cantidadNumeros) {
 		if (cantidadNumeros <= 0 || cantidadNumeros > ConstantesGlobales.DIEZ) {

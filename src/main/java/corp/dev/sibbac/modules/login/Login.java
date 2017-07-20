@@ -10,7 +10,7 @@ import corp.dev.sibbac.constantes.ConstantesGlobales;
 import corp.dev.sibbac.modules.AbstractBaseModule;
 
 /**
- *	Contiene la ejecución necesaria para login de usuario. 
+ *	Contiene la ejecucion necesaria para login de usuario. 
  */
 public class Login extends AbstractBaseModule {
 	
